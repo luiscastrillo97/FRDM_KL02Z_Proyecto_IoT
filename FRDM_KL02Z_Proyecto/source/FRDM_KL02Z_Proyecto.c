@@ -23,6 +23,7 @@
 #include "sdk_hal_i2c0.h"
 
 #include "sdk_mdlw_leds.h"
+#include "sdk_pph_mma8451Q.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -56,6 +57,7 @@ int main(void) {
 	/*Variables del proyecto*/
 	status_t status;
 	uint8_t nuevo_byte_uart;
+	mma8451_data_t	mma8451_data;
 
 
   	/* Init board hardware. */
@@ -70,6 +72,12 @@ int main(void) {
     /*Inicializar el puerto UART0 y el bus I2C0*/
     (void)uart0Inicializar(115200);	//115200bps
     (void)i2c0MasterInit(100000);	//100kbps
+    if (mma8451QWhoAmI() == kStatus_Success){
+        	(void)mma8451QInit();	//inicializa acelerometro MMA8451Q
+        	printf("MMA8451Q detected!\r\n");
+        }else{
+        	printf("MMA8451Q error\r\n");
+        }
 
 
     //Valores a digitar para obtener información o realizar una acción
@@ -77,6 +85,8 @@ int main(void) {
     printf("R: Encender. r: Apagar. Led Rojo\r\n");
     printf("V: Encender. v: Apagar. Led Verde\r\n");
     printf("A o a: Encender o Apagar. Led Azul\r\n");
+    printf("X: Imprimir valores de los tres ejes del acelerometro.");
+    printf("P: Imprimir estado de la configuracion del buffer FIFO.");
 
 
     while(1) {
@@ -118,6 +128,22 @@ int main(void) {
 					apagarLedRojo();
 					break;
 
+				//Imprimir valores de los ejes del acelerómetro
+				case 'X':
+					if(mma8451QReadAccel(&mma8451_data)== kStatus_Success){
+						printf("x:0x%04X\r\n",mma8451_data.x_value);
+						printf("y:0x%04X\r\n",mma8451_data.y_value);
+						printf("z:0x%04X\r\n",mma8451_data.z_value);
+					}else{
+						printf("MMA8451Q error\r\n");
+					}
+					break;
+
+				//Ver la configuración del buffer FIFO
+				case 'P':
+					i2c0MasterReadByte(&nuevo_byte_uart, 1, 0x1D, 0x09);
+					printf("REG_F_SETUP:%02X\r\n",nuevo_byte_uart);
+					break;
 
 				}
     		}else{

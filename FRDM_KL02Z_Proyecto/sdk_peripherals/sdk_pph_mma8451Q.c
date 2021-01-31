@@ -54,7 +54,7 @@ status_t mma8451QWhoAmI(void) {
 	}
 }
 
-status_t mma8451QReadAccel(mma8451_data_t *data ){
+status_t	mma8451QReadAccel(mma8451_data_t *data ){
 	status_t status;
 	uint8_t i2c_data[7];
 
@@ -70,7 +70,7 @@ status_t mma8451QReadAccel(mma8451_data_t *data ){
 	}
 }
 
-status_t mma8451QInit(void) {
+status_t mma8451QInit(void){
 	status_t status;
 	uint8_t i2c_data;
 
@@ -80,6 +80,9 @@ status_t mma8451QInit(void) {
     /*  [0]: active=0 */
 	i2c_data = 0x00;
 	status = i2c0MasterWriteByte(&i2c_data, 1, MMA8451_ADDRESS, REG_CTRL_REG1);
+
+	if(status!=kStatus_Success)
+		return(status);
 
     /*  write 0000 0001= 0x01 to XYZ_DATA_CFG register */
     /*  [7]: reserved */
@@ -93,6 +96,9 @@ status_t mma8451QInit(void) {
 	i2c_data = 0x01;
 	status = i2c0MasterWriteByte(&i2c_data, 1, MMA8451_ADDRESS, REG_XYZ_DATA_CFG);
 
+	if(status!=kStatus_Success)
+		return(status);
+
     /*  write 0000 1101 = 0x0D to accelerometer control register 1 */
     /*  [7-6]: aslp_rate=00 */
     /*  [5-3]: dr=001 for 200Hz data rate (when in hybrid mode) */
@@ -103,6 +109,10 @@ status_t mma8451QInit(void) {
 	i2c_data = 0x0D;
 	status = i2c0MasterWriteByte(&i2c_data, 1, MMA8451_ADDRESS, REG_CTRL_REG1);
 
+	if(status!=kStatus_Success)
+		return(status);
+
+	return(kStatus_Success);
 }
 
 

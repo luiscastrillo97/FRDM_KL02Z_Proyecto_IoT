@@ -29,7 +29,7 @@ enum _ec25_lista_ordendes{
 };
 
 #define EC25_BYTES_EN_BUFFER	100
-#define EC25_TIEMPO_MAXIMO_ESPERA	10
+#define EC25_TIEMPO_MAXIMO_ESPERA	20
 /*******************************************************************************
  * Private Prototypes
  ******************************************************************************/

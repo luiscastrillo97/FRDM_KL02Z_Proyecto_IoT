@@ -89,13 +89,13 @@ uint16_t uart0CuantosDatosHayEnBuffer(void) {
 	return ((uint16_t) (rxIndex - txIndex));
 }
 /*--------------------------------------------*/
-status_t uart0LeerByteDesdeBuffer(uint8_t *nuevo_byte){
+status_t uart0LeerByteDesdeBuffer(uint8_t *nuevo_byte) {
 	if ((kLPSCI_TxDataRegEmptyFlag & LPSCI_GetStatusFlags(UART0)) && (rxIndex != txIndex)) {
-		*nuevo_byte=uart0_buffer_circular[txIndex];
+		*nuevo_byte = uart0_buffer_circular[txIndex];
 		txIndex++;
 		txIndex %= LONGITUD_BUFFER_CIRCULAR;
-		return(kStatus_Success);
-	}else{
-		return(kStatus_Fail);
+		return (kStatus_Success);
+	} else {
+		return (kStatus_Fail);
 	}
 }

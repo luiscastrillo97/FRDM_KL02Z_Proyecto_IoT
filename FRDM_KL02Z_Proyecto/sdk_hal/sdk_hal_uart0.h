@@ -25,7 +25,7 @@
  * Public Definitions
  ******************************************************************************/
 /*! @brief Tamaño de buffer circular para recibir datos por UART (Unit: Byte). */
-#define LONGITUD_BUFFER_CIRCULAR 	64
+#define LONGITUD_BUFFER_CIRCULAR 	100
 
 /*******************************************************************************
  * External vars

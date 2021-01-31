@@ -56,93 +56,49 @@ void BOARD_InitPins(void);
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define LEDS_INITPINS_LED_BLUE_FGPIO FGPIOB              /*!<@brief FGPIO peripheral base pointer */
-#define LEDS_INITPINS_LED_BLUE_GPIO GPIOB                /*!<@brief GPIO peripheral base pointer */
-#define LEDS_INITPINS_LED_BLUE_GPIO_PIN_MASK (1U << 10U) /*!<@brief GPIO pin mask */
+#define BOARD_LEDPINS_LED_BLUE_FGPIO FGPIOB              /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LEDPINS_LED_BLUE_GPIO GPIOB                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LEDPINS_LED_BLUE_GPIO_PIN_MASK (1U << 10U) /*!<@brief GPIO pin mask */
 
 /* Symbols to be used with PORT driver */
-#define LEDS_INITPINS_LED_BLUE_PORT PORTB                /*!<@brief PORT peripheral base pointer */
-#define LEDS_INITPINS_LED_BLUE_PIN 10U                   /*!<@brief PORT pin number */
-#define LEDS_INITPINS_LED_BLUE_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
+#define BOARD_LEDPINS_LED_BLUE_PORT PORTB                /*!<@brief PORT peripheral base pointer */
+#define BOARD_LEDPINS_LED_BLUE_PIN 10U                   /*!<@brief PORT pin number */
+#define BOARD_LEDPINS_LED_BLUE_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
                                                          /* @} */
 
 /*! @name PORTB7 (number 2), J8[8]/LEDRGB_GREEN
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define LEDS_INITPINS_LED_GREEN_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
-#define LEDS_INITPINS_LED_GREEN_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
-#define LEDS_INITPINS_LED_GREEN_GPIO_PIN_MASK (1U << 7U) /*!<@brief GPIO pin mask */
+#define BOARD_LEDPINS_LED_GREEN_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LEDPINS_LED_GREEN_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LEDPINS_LED_GREEN_GPIO_PIN_MASK (1U << 7U) /*!<@brief GPIO pin mask */
 
 /* Symbols to be used with PORT driver */
-#define LEDS_INITPINS_LED_GREEN_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define LEDS_INITPINS_LED_GREEN_PIN 7U                   /*!<@brief PORT pin number */
-#define LEDS_INITPINS_LED_GREEN_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
+#define BOARD_LEDPINS_LED_GREEN_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LEDPINS_LED_GREEN_PIN 7U                   /*!<@brief PORT pin number */
+#define BOARD_LEDPINS_LED_GREEN_PIN_MASK (1U << 7U)      /*!<@brief PORT pin mask */
                                                          /* @} */
 
 /*! @name PORTB6 (number 1), J8[7]/LEDRGB_RED/LPTMR0_ALT3
   @{ */
 
 /* Symbols to be used with GPIO driver */
-#define LEDS_INITPINS_LED_RED_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
-#define LEDS_INITPINS_LED_RED_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
-#define LEDS_INITPINS_LED_RED_GPIO_PIN_MASK (1U << 6U) /*!<@brief GPIO pin mask */
+#define BOARD_LEDPINS_LED_RED_FGPIO FGPIOB             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_LEDPINS_LED_RED_GPIO GPIOB               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_LEDPINS_LED_RED_GPIO_PIN_MASK (1U << 6U) /*!<@brief GPIO pin mask */
 
 /* Symbols to be used with PORT driver */
-#define LEDS_INITPINS_LED_RED_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define LEDS_INITPINS_LED_RED_PIN 6U                   /*!<@brief PORT pin number */
-#define LEDS_INITPINS_LED_RED_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
+#define BOARD_LEDPINS_LED_RED_PORT PORTB               /*!<@brief PORT peripheral base pointer */
+#define BOARD_LEDPINS_LED_RED_PIN 6U                   /*!<@brief PORT pin number */
+#define BOARD_LEDPINS_LED_RED_PIN_MASK (1U << 6U)      /*!<@brief PORT pin mask */
                                                        /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
-void LEDS_InitPins(void);
-
-/*! @name PORTB3 (number 23), J7[10]/I2C0_SCL/UART0_TX
-  @{ */
-
-/* Symbols to be used with PORT driver */
-#define I2C_INITPINS_ACCEL_SCL_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define I2C_INITPINS_ACCEL_SCL_PIN 3U                   /*!<@brief PORT pin number */
-#define I2C_INITPINS_ACCEL_SCL_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
-                                                        /* @} */
-
-/*! @name PORTB4 (number 24), J7[9]/I2C0_SDA/UART0_RX
-  @{ */
-
-/* Symbols to be used with PORT driver */
-#define I2C_INITPINS_ACCEL_SDA_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define I2C_INITPINS_ACCEL_SDA_PIN 4U                   /*!<@brief PORT pin number */
-#define I2C_INITPINS_ACCEL_SDA_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
-                                                        /* @} */
-
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void I2C_InitPins(void);
-
-/*! @name PORTA10 (number 21), J8[5]/IRQ_8
-  @{ */
-
-/* Symbols to be used with GPIO driver */
-#define MMA8451_INITPINS_ACCEL_IRQ_8_FGPIO FGPIOA              /*!<@brief FGPIO peripheral base pointer */
-#define MMA8451_INITPINS_ACCEL_IRQ_8_GPIO GPIOA                /*!<@brief GPIO peripheral base pointer */
-#define MMA8451_INITPINS_ACCEL_IRQ_8_GPIO_PIN_MASK (1U << 10U) /*!<@brief GPIO pin mask */
-
-/* Symbols to be used with PORT driver */
-#define MMA8451_INITPINS_ACCEL_IRQ_8_PORT PORTA                /*!<@brief PORT peripheral base pointer */
-#define MMA8451_INITPINS_ACCEL_IRQ_8_PIN 10U                   /*!<@brief PORT pin number */
-#define MMA8451_INITPINS_ACCEL_IRQ_8_PIN_MASK (1U << 10U)      /*!<@brief PORT pin mask */
-                                                               /* @} */
-
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void MMA8451_InitPins(void);
+void BOARD_LedPins(void);
 
 #if defined(__cplusplus)
 }

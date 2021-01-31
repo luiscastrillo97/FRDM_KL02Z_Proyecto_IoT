@@ -19,6 +19,7 @@
 
 
 #include "sdk_hal_gpio.h"
+#include "sdk_hal_uart0.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -48,7 +49,10 @@
  * Public Source Code
  ******************************************************************************/
 int main(void) {
-	status_t resultado;
+
+	/*Variables del programa*/
+	status_t status;
+	uint8_t nuevo_byte_uart;
 
   	/* Init board hardware. */
     BOARD_InitBootPins();
@@ -59,24 +63,65 @@ int main(void) {
     BOARD_InitDebugConsole();
 #endif
 
-    PRINTF("Hello World\n");
+    /*Inicializando puerto UART*/
+    (void)uart0Inicializar(115200);	//115200bps
 
-    //coloca el pin PTB7 en alto
-    resultado=gpioPutLow(KPTB10);
-    gpioPutValue(KPTB6,0);
+    /*Menú de opciones*/
+    PRINTF("Usar teclado para controlar LEDs\r\n");
+    PRINTF("R: Encender. r: Apagar led ROJO\r\n");
+    PRINTF("V: Encender. v: Apagar led VERDE\r\n");
+    PRINTF("A: Encender. a: Apagar led AZUL\r\n");
 
-    if(resultado!=kStatus_Success)
-    	printf("error de operacion");
-
-
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
     while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
+    	/*Verificar si hay datos en en buffer circular*/
+    	if(uart0CuantosDatosHayEnBuffer()>0){
+
+    		/*Leer los datos del buffer circular*/
+    		status=uart0LeerByteDesdeBuffer(&nuevo_byte_uart);
+
+    		/*Condicional que se ejecuta si se leen correctamente los datos*/
+    		if(status==kStatus_Success){
+
+    			/*Imprimir en pantalla la tecla oprimida*/
+    			printf("dato:%c\r\n",nuevo_byte_uart);
+
+    			/*Switch que ejecuta la acción según la opción seleccionada*/
+    			switch (nuevo_byte_uart) {
+
+    			//Encender Led Azul
+				case 'A':
+					gpioPutLow(KPTB10);
+					break;
+				//Apagar Led Azul
+				case 'a':
+					gpioPutHigh(KPTB10);
+					break;
+
+				//Encender Led Verde
+				case 'V':
+					gpioPutLow(KPTB7);
+					break;
+				//Apagar Led Verde
+				case 'v':
+					gpioPutHigh(KPTB7);
+					break;
+
+				//Encender Led Rojo
+				case 'R':
+					gpioPutValue(KPTB6,0);
+					break;
+				//Apagar Led Rojo
+				case 'r':
+					gpioPutValue(KPTB6,1);
+					break;
+
+
+				}
+    		}else{
+    			printf("error\r\n");
+    		}
+    	}
     }
+
     return 0 ;
 }

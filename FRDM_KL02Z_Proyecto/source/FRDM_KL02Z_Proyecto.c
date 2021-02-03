@@ -31,7 +31,7 @@
 /*******************************************************************************
  * Private Prototypes
  ******************************************************************************/
-
+void waytTime(void);
 /*******************************************************************************
  * External vars
  ******************************************************************************/
@@ -87,9 +87,10 @@ int main(void) {
 	//Ciclo infinito encendiendo y apagando led verde
 	//inicia el SUPERLOOP
     while(1) {
-    	waytTime();
+    	waytTime();		//base de tiempo fija aproximadamente 200ms
 
-    	estado_actual_ec25=ec25Polling();
+		estado_actual_ec25 = ec25Polling();	//actualiza maquina de estados encargada de avanzar en el proceso interno del MODEM
+											//retorna el estado actual de la FSM
 
     	switch(estado_actual_ec25){
     	case kFSM_RESULTADO_ERROR:
@@ -99,15 +100,21 @@ int main(void) {
     		break;
 
     	case kFSM_RESULTADO_EXITOSO:
+    		apagarLedRojo();
     		toggleLedVerde();
     		apagarLedAzul();
-    		apagarLedRojo();
+    		break;
+
+    	case kFSM_RESULTADO_ERROR_RSSI:
+    		toggleLedRojo();
+    		apagarLedVerde();
+    		toggleLedAzul();
     		break;
 
     	default:
-    		toggleLedAzul();
-    		apagarLedVerde();
     		apagarLedRojo();
+    		apagarLedVerde();
+    		toggleLedAzul();
     		break;
     	}
     }

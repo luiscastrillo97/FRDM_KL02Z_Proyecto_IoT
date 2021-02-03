@@ -40,7 +40,7 @@ void waytTime(void);
  * Local vars
  ******************************************************************************/
 
-uint8_t mensaje_de_texto[]="Mensaje de prueba desde EC25";
+uint8_t mensaje_mqtt[]="45";
 
 /*******************************************************************************
  * Private Source Code
@@ -82,7 +82,7 @@ int main(void) {
 
     //inicializa todas las funciones necesarias para trabajar con el modem EC25
     ec25Inicializacion();
-    ec25EnviarMensajeDeTexto(&mensaje_de_texto[0], sizeof(mensaje_de_texto));
+    ec25EnviarMensajeMqtt(&mensaje_mqtt[0], sizeof(mensaje_mqtt));
 
 	//Ciclo infinito encendiendo y apagando led verde
 	//inicia el SUPERLOOP

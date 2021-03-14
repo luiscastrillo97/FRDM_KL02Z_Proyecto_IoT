@@ -23,9 +23,13 @@
          </generated_project_files>
          <pins_profile>
             <processor_version>8.0.1</processor_version>
+            <pin_labels>
+               <pin_label pin_num="19" pin_signal="ADC0_SE3/PTA8/I2C1_SCL" label="J10[6]/ADC0_SE3/I2C1_SCL" identifier="XTAL_I2C;XTAL_SCL"/>
+               <pin_label pin_num="20" pin_signal="ADC0_SE2/PTA9/I2C1_SDA" label="J10[5]/ADC0_SE2/I2C1_SDA" identifier="XTAL_SDA"/>
+            </pin_labels>
          </pins_profile>
          <functions_list>
-            <function name="BOARD_InitPins">
+            <function name="UART_InitPins">
                <description>Configures pin routing and optionally pin electrical features.</description>
                <options>
                   <callFromInitBoot>true</callFromInitBoot>
@@ -33,17 +37,17 @@
                   <enableClock>true</enableClock>
                </options>
                <dependencies>
-                  <dependency resourceType="Peripheral" resourceId="UART0" description="Peripheral UART0 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="Peripheral" resourceId="UART0" description="Peripheral UART0 is not initialized" problem_level="1" source="Pins:UART_InitPins">
                      <feature name="initialized" evaluation="equal">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:UART_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
                      </feature>
                   </dependency>
-                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:UART_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
                      </feature>
@@ -112,6 +116,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="I2C1" description="Peripheral I2C1 is not initialized" problem_level="1" source="Pins:I2C_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:I2C_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
@@ -126,6 +135,12 @@
                <pins>
                   <pin peripheral="I2C0" signal="SCL" pin_num="23" pin_signal="PTB3/IRQ_10/I2C0_SCL/UART0_TX"/>
                   <pin peripheral="I2C0" signal="SDA" pin_num="24" pin_signal="PTB4/IRQ_11/I2C0_SDA/UART0_RX"/>
+                  <pin peripheral="I2C1" signal="SCL" pin_num="19" pin_signal="ADC0_SE3/PTA8/I2C1_SCL">
+                     <pin_features>
+                        <pin_feature name="identifier" value="XTAL_SCL"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="I2C1" signal="SDA" pin_num="20" pin_signal="ADC0_SE2/PTA9/I2C1_SDA"/>
                </pins>
             </function>
             <function name="MMA8451_InitPins">
